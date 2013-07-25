@@ -1,0 +1,17 @@
+{
+  "version": "0.1",
+  "name": "Chaos Control",
+  "description": "A handy list of tasks and projects",
+  "launch_path": "/index.html",
+  "icons": {
+    "16": "/img/icons/cc-16.png",
+    "48": "/img/icons/cc-48.png",
+    "128": "/img/icons/cc-128.png"
+  },
+  "developer": {
+    "name": "Vitaly Domnikov",
+    "url": "http://dotcypress.github.com"
+  },  
+  "appcache_path": "/manifest.appcache",  
+  "default_locale": "en"
+}

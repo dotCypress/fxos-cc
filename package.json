@@ -1,0 +1,13 @@
+{
+  "name": "fxos-cc",
+  "version": "1.0.0",
+  "author": "Vitaly Domnikov <dotcypress@gmail.com>",
+  "description": "Chaos Control for Firefox OS",
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:dotcypress/fxos-cc.git"
+  },
+  "engines": {
+    "node": ">=0.8"
+  }
+}
