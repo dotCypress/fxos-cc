@@ -5,8 +5,8 @@
     </menu>
     <h1>{{currentTabTitle()}}</h1>
   </header>
-  <header>
-    <h2>{{currentTabTitle()}}</h2>
+  <header data-ng-show="currentTab==3">
+    <a data-ng-click="showSortingChooser=true"><h2 class="button">{{sortKind.name}}</h2></a>
   </header>
 </section>
 <section data-type="list" class="view with-toolbar" data-ng-show="currentTab==0">
@@ -58,7 +58,7 @@
       <li data-ng-repeat="item in chaosBox">
         <aside>
         <label class="pack-checkbox">
-          <input type="checkbox">
+          <input type="checkbox" data-ng-model="item.isCompleted" data-ng-change="taskChanged(item)">
           <span></span>
         </label>
         </aside>
@@ -67,7 +67,7 @@
             {{item.name}}
           </p>
           <p>
-            {{item.memo}}
+            {{getTaskStatus(item)}}
           </p>
         </a>
       </li>
@@ -76,4 +76,9 @@
 <section role="app-bar">
   <a data-ng-repeat="tab in tabs" class="{{tab.icon}}" data-ng-class="{active: currentTab==$index}" data-ng-click="switchTab($index)">{{tab.name}}</a>
 </section>
-
+<form role="dialog" data-type="action"  data-ng-show="showSortingChooser">
+  <header>Sorting</header>
+  <menu>
+    <button data-ng-repeat="sort in sorting" data-ng-click="switchSorting(sort)">{{sort.name}}</button>
+  </menu>
+</form>

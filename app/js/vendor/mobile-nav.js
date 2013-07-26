@@ -152,6 +152,9 @@ define(['angular'], function() {
 
     self.goBack = function goBack() {
       var current = self.history.shift();
+      if(self.history.length === 0){
+        return self.go('/', 'none', false, true);
+      }
       var element = self.history[0];
       return self.go(element.path, current.transition, true, true);
     };

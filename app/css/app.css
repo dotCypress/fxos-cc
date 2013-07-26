@@ -16,7 +16,7 @@ body {
   overflow: hidden;
 }
 
-form {
+form.editor {
  margin: 1rem 2rem;
 }
 

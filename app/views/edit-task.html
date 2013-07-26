@@ -2,14 +2,14 @@
   <header>
     <button data-ng-click="close()"><span class="icon icon-close">close</span></button>
     <menu type="toolbar">
-      <button class="danger" data-ng-show="isExisting" data-ng-click="delete()">Delete</button>
+      <button class="danger" data-ng-show="isExisting" data-ng-click="showConfirmation=true">Delete</button>
       <button data-ng-click="save()">Done</button>
     </menu>
     <h1>Task</h1>
   </header>
 </section>
 <section role="region" class="view with-toolbar">
-  <form>
+  <form class="editor">
     <h2>Task details</h2>
     <fieldset data-ng-class="{'error': error}">
       <legend>Name</legend>
@@ -40,10 +40,21 @@
     </select>
 
     <h2>Start</h2>
-    <input data-ng-model="task.start" type="date" placeholder="Start">
+    <input data-ng-model="task.startDate" type="date" placeholder="Start" dateFix>
 
     <h2>Due</h2>
-    <input data-ng-model="task.due" type="date" placeholder="Due">
+    <input data-ng-model="task.dueDate" type="date" placeholder="Due" dateFix>
 
   </form>
 </section>
+<form role="dialog" data-type="confirm" data-ng-show="showConfirmation">
+  <section>
+    <h1>Confirmation</h1>
+    <p>Are you sure you want to delete this task?</p>
+  </section>
+  <menu>
+    <button class="danger" data-ng-click="delete()">Delete</button>
+    <button data-ng-click="showConfirmation=false">Cancel</button>
+  </menu>
+</form>
+

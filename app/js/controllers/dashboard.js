@@ -1,7 +1,9 @@
 define(['app'], function(app) {
-  app.controller('DashboardCtrl', ['$scope', '$routeParams', '$navigate', 'database',
-    function DashboardCtrl($scope, $routeParams,  $navigate, database) {
-
+  app.controller('DashboardCtrl', ['$scope', '$navigate', 'database', 'extensions',
+    function DashboardCtrl($scope, $navigate, database, extensions) {
+      $scope.getTaskStatus = extensions.getTaskStatus;
+      $scope.sorting = extensions.sorting;
+      $scope.sortKind = extensions.sorting[4];
       $scope.tabs = [
         {name: 'Due today', icon:'icon-due'},
         {name: 'Projects',  icon:'icon-projects'},
@@ -24,6 +26,16 @@ define(['app'], function(app) {
             $navigate.go('/edit-task/0//', 'modal');
           break;
         }
+      };
+
+      $scope.switchSorting = function(sort){
+        $scope.sortKind = sort;
+        $scope.showSortingChooser = false;
+        loadData();
+      };
+
+      $scope.taskChanged = function(task){
+        database.saveTask(task);
       };
 
       $scope.navigateToContext = function(id){
@@ -71,8 +83,8 @@ define(['app'], function(app) {
             });
           break;
           case 3:
-            database.getProjectTasks(0, function(err, contexts){
-              $scope.chaosBox = contexts;
+            database.getProjectTasks(0, function(err, tasks){
+              $scope.chaosBox = extensions.filter(tasks, $scope.sortKind);;
               $scope.$apply();
             });
           break;

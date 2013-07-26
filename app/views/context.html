@@ -8,7 +8,7 @@
     <h1>{{context.name}}</h1>
   </header>
   <header>
-    <h2></h2>
+    <a data-ng-click="showSortingChooser=true"><h2 class="button">{{sortKind.name}}</h2></a>
   </header>
 </section>
 <section data-type="list" class="view with-toolbar">
@@ -31,4 +31,9 @@
       </li>
     </ul>
 </section>
-
+<form role="dialog" data-type="action"  data-ng-show="showSortingChooser">
+  <header>Sorting</header>
+  <menu>
+    <button data-ng-repeat="sort in sorting" data-ng-click="switchSorting(sort)">{{sort.name}}</button>
+  </menu>
+</form>

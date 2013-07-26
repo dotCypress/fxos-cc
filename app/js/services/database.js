@@ -1,14 +1,19 @@
-define(['app','lodash'], function(app, _) {
+define(['app', 'lodash'], function(app, _) {
   app.factory('database', ['extensions', function(extensions) {
 
     var DB = function() {
-      var tasks = new PouchDB('tasks');
+      var tasks = new PouchDB('tasksv');
       var projects = new PouchDB('projects');
       var contexts = new PouchDB('contexts');
 
       this.getDueTasks = function(cb) {
         tasks.allDocs({include_docs: true}, function(err, doc) {
-          return cb(null, _.pluck(doc.rows, 'doc'));
+          var all =  _.pluck(doc.rows, 'doc');
+          var due = _.filter(all, function(task){
+            var status = extensions.getTaskStatus(task);
+            return status === extensions.due_today || status === extensions.overdue;
+          });
+          return cb(null, due);
         });
       };
 

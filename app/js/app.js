@@ -1,6 +1,19 @@
 define(['angular'], function() {
   var app = angular
     .module('app', ['mobile-navigate'])
+    .directive('dateFix', function() {
+      return {
+        restrict: 'A',
+        require: 'ngModel',
+        link: function (scope, element, attr, ngModel) {
+          element.on('change', function () {
+            scope.$apply(function() {
+              ngModel.$setViewValue(element.val());
+            });
+          });
+        }
+      };
+    })
     .config(['$routeProvider', function($routeProvider) {
       $routeProvider
         .when('/', {
@@ -32,6 +45,7 @@ define(['angular'], function() {
     var search = $location.search();
     $navigate.go($location.path(), 'none').search(search);
   }]);
+
   app.state={};
   return app;
 });

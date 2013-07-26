@@ -2,13 +2,13 @@
   <header>
     <button data-ng-click="close()"><span class="icon icon-close">close</span></button>
     <menu type="toolbar">
-      <button class="danger" data-ng-show="isExisting" data-ng-click="delete()">Delete</button>
+      <button class="danger" data-ng-show="isExisting" data-ng-click="showConfirmation=true">Delete</button>
       <button data-ng-click="save()">Done</button>
     </menu>
     <h1>Project</h1>
   </header>
 </section>
-<form>
+<form class="editor">
   <h2>Project details</h2>
   <fieldset data-ng-class="{'error': error}">
     <legend>Name</legend>
@@ -28,4 +28,14 @@
       </p>
     </section>
   </fieldset>
+</form>
+<form role="dialog" data-type="confirm" data-ng-show="showConfirmation">
+  <section>
+    <h1>Confirmation</h1>
+    <p>Are you sure you want to delete this project?</p>
+  </section>
+  <menu>
+    <button class="danger" data-ng-click="delete()">Delete</button>
+    <button data-ng-click="showConfirmation=false">Cancel</button>
+  </menu>
 </form>
