@@ -2,9 +2,48 @@
   <header>
     <button data-ng-click="close()"><span class="icon icon-close">close</span></button>
     <menu type="toolbar">
-      <button><span class="icon icon-edit">edit</span></button>
-      <button><span class="icon icon-add">add</span></button>
+      <button class="danger" data-ng-show="isExisting" data-ng-click="delete()">Delete</button>
+      <button data-ng-click="save()">Done</button>
     </menu>
     <h1>Task</h1>
   </header>
+</section>
+<section role="region" class="view with-toolbar">
+  <form>
+    <h2>Task details</h2>
+    <fieldset data-ng-class="{'error': error}">
+      <legend>Name</legend>
+      <section>
+        <p>
+          <input data-ng-model="task.name" type="text" placeholder="Name">
+          <button type="reset">Clear</button>
+        </p>
+      </section>
+    </fieldset>
+    <fieldset>
+      <legend>Memo</legend>
+      <section>
+        <p>
+          <input data-ng-model="task.memo" type="text" placeholder="Memo">
+          <button type="reset">Clear</button>
+        </p>
+      </section>
+    </fieldset>
+
+    <h2>Project</h2>
+    <select data-ng-model="task.projectId" data-ng-options="p._id as p.name for p in projects">
+    </select>
+
+    <h2>Context</h2>
+    <select data-ng-model="task.contextId" data-ng-options="c._id as c.name for c in contexts">
+      <option value="">-- without context --</option>
+    </select>
+
+    <h2>Start</h2>
+    <input data-ng-model="task.start" type="date" placeholder="Start">
+
+    <h2>Due</h2>
+    <input data-ng-model="task.due" type="date" placeholder="Due">
+
+  </form>
 </section>

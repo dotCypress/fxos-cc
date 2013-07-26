@@ -15,6 +15,10 @@ define(['angular'], function() {
           templateUrl: 'views/edit-context.html',
           controller: 'EditContextCtrl'
         })
+        .when('/edit-project/:id', {
+          templateUrl: 'views/edit-project.html',
+          controller: 'EditProjectCtrl'
+        })
         .otherwise({
           redirectTo: '/'
         });
@@ -24,6 +28,6 @@ define(['angular'], function() {
     var search = $location.search();
     $navigate.go($location.path(), 'none').search(search);
   }]);
-
+  app.state={};
   return app;
 });

@@ -77,6 +77,26 @@ form {
   background-image: url(../img/categorybar_chaos_box.png);
 }
 
+.entity{
+  background-position: 0 1rem;
+  background-repeat: no-repeat;
+  display: block;
+  height: 100%;
+  width: 4rem;
+}
+
+.entity.context{
+  background-image: url(../img/context.png);
+}
+
+.entity.folder{
+  background-image: url(../img/folder.png);
+}
+
+.entity.project{
+  background-image: url(../img/project.png);
+}
+
 aside>label.pack-checkbox {
   margin: 0.5rem 0.5rem 0 0;
   width: 2rem;

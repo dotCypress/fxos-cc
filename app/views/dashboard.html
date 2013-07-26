@@ -3,7 +3,7 @@
     <menu type="toolbar">
       <button data-ng-click="add()"><span class="icon icon-add">add</span></button>
     </menu>
-    <h1>Chaos Control</h1>
+    <h1>{{currentTabTitle()}}</h1>
   </header>
   <header>
       <h2>{{currentTabTitle()}}</h2>
@@ -13,12 +13,12 @@
     <ul>
       <li data-ng-repeat="item in due">
         <aside>
-        <label class="pack-checkbox">
-          <input type="checkbox">
-          <span></span>
-        </label>
+          <label class="pack-checkbox">
+            <input type="checkbox">
+            <span></span>
+          </label>
         </aside>
-        <a>
+        <a data-ng-click="editTask(item._id)">
           <p>
             {{item.name}}
           </p>
@@ -32,7 +32,10 @@
 <section data-type="list" class="view with-toolbar" data-ng-show="currentTab==1">
     <ul>
       <li data-ng-repeat="item in projects">
-        <a>
+        <a data-ng-click="editProject(item._id)">
+          <aside>
+            <span class="entity project"></span>
+          </aside>
           <p>{{item.name}}</p>
         </a>
       </li>
@@ -42,6 +45,9 @@
     <ul>
       <li data-ng-repeat="item in contexts">
         <a data-ng-click="editContext(item._id)">
+          <aside>
+            <span class="entity context"></span>
+          </aside>
           <p>{{item.name}}</p>
         </a>
       </li>
@@ -56,7 +62,7 @@
           <span></span>
         </label>
         </aside>
-        <a>
+        <a data-ng-click="editTask(item._id)">
           <p>
             {{item.name}}
           </p>

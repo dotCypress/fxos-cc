@@ -5,17 +5,6 @@ define(['app','lodash'], function(app, _) {
       var tasks = new PouchDB('tasks');
       var projects = new PouchDB('projects');
       var contexts = new PouchDB('contexts');
-      var task = {
-        _id: new Date().toISOString(),
-        name: 'Task 1',
-        memo: 'Hello world',
-        contextId: 0,
-        projectId: 0,
-        isCompleted: false,
-        startDate: null,
-        dueDate:null
-      };
-      tasks.put(task);
 
       this.getDueTasks = function(cb) {
         tasks.allDocs({include_docs: true}, function(err, doc) {
@@ -23,15 +12,53 @@ define(['app','lodash'], function(app, _) {
         });
       };
 
+      this.getProjectTasks = function(projectId, cb) {
+        tasks.allDocs({include_docs: true}, function(err, doc) {
+          var all = _.pluck(doc.rows, 'doc');
+          var filtered = _.where(all , {'projectId' : projectId});
+          return cb(null, filtered);
+        });
+      };
+
+      this.saveTask = function(task, cb) {
+        tasks.put(task, cb);
+      };
+
+      this.deleteTask = function(task, cb) {
+        tasks.remove(task, cb);
+      };
+
+      this.getTaskById = function(id, cb) {
+        tasks.get(id, function(err, doc) {
+          return cb(err, doc);
+        });
+      };
+
       this.getProjects = function(parentFolderId, cb) {
         projects.allDocs({include_docs: true}, function(err, doc) {
-          return cb(null, _.pluck(doc.rows, 'doc'));
+          var projects = _.sortBy(_.pluck(doc.rows, 'doc'), 'name');
+          projects.unshift({_id:1, name: 'Single tasks'});
+          return cb(null, projects);
+        });
+      };
+
+      this.saveProject = function(project, cb) {
+        projects.put(project, cb);
+      };
+
+      this.deleteProject = function(project, cb) {
+        projects.remove(project, cb);
+      };
+
+      this.getProjectById = function(id, cb) {
+        projects.get(id, function(err, doc) {
+          return cb(err, doc);
         });
       };
 
       this.getContexts = function(parentContextId, cb) {
         contexts.allDocs({include_docs: true}, function(err, doc) {
-          return cb(null, _.pluck(doc.rows, 'doc'));
+           return cb(null, _.sortBy(_.pluck(doc.rows, 'doc'), 'name'));
         });
       };
 

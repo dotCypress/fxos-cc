@@ -9,14 +9,13 @@ define(['app'], function(app) {
         {name: 'Chaos Box', icon:'icon-chaosbox'}
       ];
 
-      $scope.currentTab=-1;
-
       $scope.add = function(){
         switch($scope.currentTab){
           case 0:
             $navigate.go('/edit-task///', 'modal');
           break;
           case 1:
+            $navigate.go('/edit-project/', 'modal');
           break;
           case 2:
             $navigate.go('/edit-context/', 'modal');
@@ -31,7 +30,16 @@ define(['app'], function(app) {
         $navigate.go('/edit-context/' + id, 'modal');
       }
 
+      $scope.editProject = function(id){
+        $navigate.go('/edit-project/' + id, 'modal');
+      }
+
+      $scope.editTask = function(id){
+        $navigate.go('/edit-task/' + id + '//', 'modal');
+      }
+
       $scope.switchTab = function(index){
+        app.state.tab = index;
         $scope.currentTab = index;
         loadData();
       };
@@ -40,7 +48,7 @@ define(['app'], function(app) {
         return $scope.tabs[$scope.currentTab].name;
       };
 
-      $scope.switchTab(0);
+      $scope.switchTab(app.state.tab || 0);
 
       function loadData(){
         switch($scope.currentTab){
@@ -59,6 +67,12 @@ define(['app'], function(app) {
           case 2:
             database.getContexts(null, function(err, contexts){
               $scope.contexts = contexts;
+              $scope.$apply();
+            });
+          break;
+          case 3:
+            database.getProjectTasks(0, function(err, contexts){
+              $scope.chaosBox = contexts;
               $scope.$apply();
             });
           break;
