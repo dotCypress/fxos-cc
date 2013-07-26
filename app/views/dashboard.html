@@ -6,8 +6,8 @@
     <h1>{{currentTabTitle()}}</h1>
   </header>
   <header>
-      <h2>{{currentTabTitle()}}</h2>
-    </header>
+    <h2>{{currentTabTitle()}}</h2>
+  </header>
 </section>
 <section data-type="list" class="view with-toolbar" data-ng-show="currentTab==0">
     <ul>
@@ -32,7 +32,7 @@
 <section data-type="list" class="view with-toolbar" data-ng-show="currentTab==1">
     <ul>
       <li data-ng-repeat="item in projects">
-        <a data-ng-click="editProject(item._id)">
+        <a data-ng-click="navigateToProject(item._id)">
           <aside>
             <span class="entity project"></span>
           </aside>
@@ -44,7 +44,7 @@
 <section data-type="list" class="view with-toolbar" data-ng-show="currentTab==2">
     <ul>
       <li data-ng-repeat="item in contexts">
-        <a data-ng-click="editContext(item._id)">
+        <a data-ng-click="navigateToContext(item._id)">
           <aside>
             <span class="entity context"></span>
           </aside>

@@ -1,0 +1,34 @@
+<section role="region">
+  <header>
+  <button data-ng-click="close()"><span class="icon icon-back">back</span></button>
+    <menu type="toolbar">
+      <button data-ng-click="edit()"><span class="icon icon-edit">edit</span></button>
+      <button data-ng-click="add()"><span class="icon icon-add">add</span></button>
+    </menu>
+    <h1>{{context.name}}</h1>
+  </header>
+  <header>
+    <h2></h2>
+  </header>
+</section>
+<section data-type="list" class="view with-toolbar">
+    <ul>
+      <li data-ng-repeat="item in tasks">
+        <aside>
+          <label class="pack-checkbox">
+            <input type="checkbox">
+            <span></span>
+          </label>
+        </aside>
+        <a data-ng-click="editTask(item._id)">
+          <p>
+            {{item.name}}
+          </p>
+          <p>
+            {{item.memo}}
+          </p>
+        </a>
+      </li>
+    </ul>
+</section>
+

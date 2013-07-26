@@ -20,6 +20,14 @@ define(['app','lodash'], function(app, _) {
         });
       };
 
+      this.getContextTasks = function(contextId, cb) {
+        tasks.allDocs({include_docs: true}, function(err, doc) {
+          var all = _.pluck(doc.rows, 'doc');
+          var filtered = _.where(all , {'contextId' : contextId});
+          return cb(null, filtered);
+        });
+      };
+
       this.saveTask = function(task, cb) {
         tasks.put(task, cb);
       };

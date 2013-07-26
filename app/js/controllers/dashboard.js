@@ -26,12 +26,12 @@ define(['app'], function(app) {
         }
       };
 
-      $scope.editContext = function(id){
-        $navigate.go('/edit-context/' + id, 'modal');
+      $scope.navigateToContext = function(id){
+        $navigate.go('/context/' + id, 'slide');
       }
 
-      $scope.editProject = function(id){
-        $navigate.go('/edit-project/' + id, 'modal');
+      $scope.navigateToProject = function(id){
+        $navigate.go('/project/' + id, 'slide');
       }
 
       $scope.editTask = function(id){

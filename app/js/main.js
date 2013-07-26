@@ -25,6 +25,7 @@ require.config({
 
     // controllers
     'js/controllers/dashboard.js',
+    'js/controllers/context.js',
     'js/controllers/edit-context.js',
     'js/controllers/edit-project.js',
     'js/controllers/edit-task.js'
