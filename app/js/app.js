@@ -7,9 +7,13 @@ define(['angular'], function() {
           templateUrl: 'views/dashboard.html',
           controller: 'DashboardCtrl'
         })
-        .when('/editTask', {
+        .when('/edit-task/:id/:pid/:cid', {
           templateUrl: 'views/edit-task.html',
           controller: 'EditTaskCtrl'
+        })
+        .when('/edit-context/:id', {
+          templateUrl: 'views/edit-context.html',
+          controller: 'EditContextCtrl'
         })
         .otherwise({
           redirectTo: '/'

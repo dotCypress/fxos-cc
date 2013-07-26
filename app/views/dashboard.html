@@ -41,7 +41,7 @@
 <section data-type="list" class="view with-toolbar" data-ng-show="currentTab==2">
     <ul>
       <li data-ng-repeat="item in contexts">
-        <a ng-click=")">
+        <a data-ng-click="editContext(item._id)">
           <p>{{item.name}}</p>
         </a>
       </li>

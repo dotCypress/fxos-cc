@@ -1,25 +1,45 @@
 define(['app'], function(app) {
   app.controller('DashboardCtrl', ['$scope', '$routeParams', '$navigate', 'database',
     function DashboardCtrl($scope, $routeParams,  $navigate, database) {
+
       $scope.tabs = [
         {name: 'Due today', icon:'icon-due'},
         {name: 'Projects',  icon:'icon-projects'},
         {name: 'Contexts',  icon:'icon-contexts'},
         {name: 'Chaos Box', icon:'icon-chaosbox'}
       ];
+
       $scope.currentTab=-1;
+
       $scope.add = function(){
-        if($scope.currentTab == 0){
-          $navigate.go('/editTask', 'modal');
+        switch($scope.currentTab){
+          case 0:
+            $navigate.go('/edit-task///', 'modal');
+          break;
+          case 1:
+          break;
+          case 2:
+            $navigate.go('/edit-context/', 'modal');
+          break;
+          case 3:
+            $navigate.go('/edit-task/0//', 'modal');
+          break;
         }
       };
+
+      $scope.editContext = function(id){
+        $navigate.go('/edit-context/' + id, 'modal');
+      }
+
       $scope.switchTab = function(index){
         $scope.currentTab = index;
         loadData();
       };
+
       $scope.currentTabTitle = function(){
         return $scope.tabs[$scope.currentTab].name;
       };
+
       $scope.switchTab(0);
 
       function loadData(){

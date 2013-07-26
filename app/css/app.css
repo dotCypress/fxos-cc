@@ -16,6 +16,10 @@ body {
   overflow: hidden;
 }
 
+form {
+ margin: 1rem 2rem;
+}
+
 .view {
   overflow-x: hidden;
   overflow-y: auto;
@@ -76,4 +80,8 @@ body {
 aside>label.pack-checkbox {
   margin: 0.5rem 0.5rem 0 0;
   width: 2rem;
+}
+
+fieldset.error section input[type="text"]{
+  background-color: #f7a6a6;
 }

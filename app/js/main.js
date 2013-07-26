@@ -25,6 +25,7 @@ require.config({
 
     // controllers
     'js/controllers/dashboard.js',
+    'js/controllers/edit-context.js',
     'js/controllers/edit-task.js'
   ], function() {
     angular.bootstrap(document, ['app']);

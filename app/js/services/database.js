@@ -35,6 +35,19 @@ define(['app','lodash'], function(app, _) {
         });
       };
 
+      this.saveContext = function(context, cb) {
+        contexts.put(context, cb);
+      };
+
+      this.deleteContext = function(context, cb) {
+        contexts.remove(context, cb);
+      };
+
+      this.getContextById = function(id, cb) {
+        contexts.get(id, function(err, doc) {
+          return cb(err, doc);
+        });
+      };
     };
     return new DB();
   }]);
