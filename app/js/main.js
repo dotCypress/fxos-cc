@@ -6,7 +6,8 @@ require.config({
   },
   paths: {
     app: 'js/app',
-    angular: 'js/vendor/angular.min'
+    angular: 'js/vendor/angular.min',
+    lodash: 'js/vendor/lodash'
   },
   baseUrl: '/'
 });
@@ -19,6 +20,7 @@ require.config({
     'angular',
 
     // services
+    'js/services/extensions.js',
     'js/services/database.js',
 
     // controllers

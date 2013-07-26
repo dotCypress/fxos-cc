@@ -6,7 +6,7 @@
     <h1>Chaos Control</h1>
   </header>
   <header>
-      <h2>{{currentTab}}</h2>
+      <h2>{{currentTabTitle()}}</h2>
     </header>
 </section>
 <section data-type="list" class="view with-toolbar" data-ng-show="currentTab==0">
@@ -20,10 +20,10 @@
         </aside>
         <a>
           <p>
-            {{item.doc.title}}
+            {{item.name}}
           </p>
           <p>
-            {{item.doc.description}}
+            {{item.memo}}
           </p>
         </a>
       </li>
@@ -33,7 +33,7 @@
     <ul>
       <li data-ng-repeat="item in projects">
         <a>
-          <p>{{item.doc.title}}</p>
+          <p>{{item.name}}</p>
         </a>
       </li>
     </ul>
@@ -42,7 +42,7 @@
     <ul>
       <li data-ng-repeat="item in contexts">
         <a ng-click=")">
-          <p>{{item.doc.title}}</p>
+          <p>{{item.name}}</p>
         </a>
       </li>
     </ul>
@@ -50,16 +50,24 @@
 <section data-type="list" class="view with-toolbar" data-ng-show="currentTab==3">
     <ul>
       <li data-ng-repeat="item in chaosBox">
+        <aside>
+        <label class="pack-checkbox">
+          <input type="checkbox">
+          <span></span>
+        </label>
+        </aside>
         <a>
-          <p>{{item.doc.title}}</p>
+          <p>
+            {{item.name}}
+          </p>
+          <p>
+            {{item.memo}}
+          </p>
         </a>
       </li>
     </ul>
 </section>
 <section role="app-bar">
-  <a class="icon-due" data-ng-class="{active: currentTab==0}" data-ng-click="currentTab=0">Due today</a>
-  <a class="icon-projects" data-ng-class="{active: currentTab==1}" data-ng-click="currentTab=1">Projects</a>
-  <a class="icon-contexts" data-ng-class="{active: currentTab==2}" data-ng-click="currentTab=2">Contexns</a>
-  <a class="icon-chaosbox" data-ng-class="{active: currentTab==3}" data-ng-click="currentTab=3">ChaosBox</a>
+  <a data-ng-repeat="tab in tabs" class="{{tab.icon}}" data-ng-class="{active: currentTab==$index}" data-ng-click="switchTab($index)">{{tab.name}}</a>
 </section>
 

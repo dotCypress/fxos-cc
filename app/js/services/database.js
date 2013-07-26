@@ -1,28 +1,41 @@
-define(['app'], function(app) {
-  app.factory('database', function() {
+define(['app','lodash'], function(app, _) {
+  app.factory('database', ['extensions', function(extensions) {
 
-     var DB = function() {
-      var db = new PouchDB('todos');
-    //   var item = {
-    //      _id: new Date().toISOString(),
-    //     title: "Task 1",
-    //     description: "This is a list-detail template. Learn more about it at its project page!",
-    //     date: new Date(2013, 1, 3)
-    //   };
-    //   db.put(item, function callback(err, result) {
-    //     if (!err) {
-    //       console.log('Successfully posted a todo!');
-    //     }else{
-    //       console.log(err);
-    //     }
-    //   });
+    var DB = function() {
+      var tasks = new PouchDB('tasks');
+      var projects = new PouchDB('projects');
+      var contexts = new PouchDB('contexts');
+      var task = {
+        _id: new Date().toISOString(),
+        name: 'Task 1',
+        memo: 'Hello world',
+        contextId: 0,
+        projectId: 0,
+        isCompleted: false,
+        startDate: null,
+        dueDate:null
+      };
+      tasks.put(task);
 
-      this.getItems = function(cb) {
-        db.allDocs({include_docs: true, descending: true}, function(err, doc) {
-          return cb(null, doc.rows);
+      this.getDueTasks = function(cb) {
+        tasks.allDocs({include_docs: true}, function(err, doc) {
+          return cb(null, _.pluck(doc.rows, 'doc'));
         });
       };
+
+      this.getProjects = function(parentFolderId, cb) {
+        projects.allDocs({include_docs: true}, function(err, doc) {
+          return cb(null, _.pluck(doc.rows, 'doc'));
+        });
+      };
+
+      this.getContexts = function(parentContextId, cb) {
+        contexts.allDocs({include_docs: true}, function(err, doc) {
+          return cb(null, _.pluck(doc.rows, 'doc'));
+        });
+      };
+
     };
     return new DB();
-  });
+  }]);
 });
