@@ -36,6 +36,10 @@ define(['angular'], function() {
           templateUrl: 'views/context.html',
           controller: 'ContextCtrl'
         })
+        .when('/project/:id', {
+          templateUrl: 'views/project.html',
+          controller: 'ProjectCtrl'
+        })
         .otherwise({
           redirectTo: '/'
         });

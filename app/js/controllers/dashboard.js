@@ -35,7 +35,9 @@ define(['app'], function(app) {
       };
 
       $scope.taskChanged = function(task){
-        database.saveTask(task);
+        database.saveTask(task, function (err) {
+          loadData();
+        });
       };
 
       $scope.navigateToContext = function(id){
@@ -84,7 +86,7 @@ define(['app'], function(app) {
           break;
           case 3:
             database.getProjectTasks(0, function(err, tasks){
-              $scope.chaosBox = extensions.filter(tasks, $scope.sortKind);;
+              $scope.chaosBox = extensions.filter(tasks, $scope.sortKind);
               $scope.$apply();
             });
           break;

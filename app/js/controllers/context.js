@@ -1,6 +1,14 @@
 define(['app'], function(app) {
   app.controller('ContextCtrl', ['$scope', '$routeParams', '$navigate', 'database', 'extensions',
     function ContextCtrl($scope, $routeParams,  $navigate, database, extensions) {
+
+      var loadData = function() {
+        database.getContextTasks($routeParams.id, function(err, tasks){
+          $scope.tasks = extensions.filter(tasks, $scope.sortKind);
+          $scope.$apply();
+        });
+      };
+
       $scope.sorting = extensions.sorting;
       $scope.sortKind = extensions.sorting[4];
       database.getContextById($routeParams.id, function(err, context){
@@ -9,15 +17,13 @@ define(['app'], function(app) {
           $navigate.goBack();
           return $scope.$apply();;
         }
-        database.getContextTasks($routeParams.id, function(err, tasks){
-          $scope.tasks = tasks;
-          $scope.$apply();
-        });
+        loadData();
       });
 
       $scope.switchSorting = function(sort){
         $scope.sortKind = sort;
         $scope.showSortingChooser = false;
+        loadData();
       };
 
       $scope.close = function(){
@@ -35,6 +41,12 @@ define(['app'], function(app) {
       $scope.add = function(){
         $navigate.go('/edit-task//0/' + $scope.context._id, 'modal');
       }
+
+      $scope.taskChanged = function(task){
+        database.saveTask(task, function (err) {
+          loadData();
+        });
+      };
     }
   ]);
 });

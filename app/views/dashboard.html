@@ -14,7 +14,7 @@
       <li data-ng-repeat="item in due">
         <aside>
           <label class="pack-checkbox">
-            <input type="checkbox">
+            <input type="checkbox" data-ng-model="item.isCompleted" data-ng-change="taskChanged(item)">
             <span></span>
           </label>
         </aside>

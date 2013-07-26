@@ -105,3 +105,8 @@ aside>label.pack-checkbox {
 fieldset.error section input[type="text"]{
   background-color: #f7a6a6;
 }
+
+.view fieldset section textarea{
+  height: auto;
+  font-family: "MozTT",sans-serif;
+}
