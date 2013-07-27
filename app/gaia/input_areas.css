@@ -258,7 +258,7 @@ form[role="search"] p input:focus {
   padding: 0 2rem 0 0;
 }
 
-form[role="search"] p input:invalid, 
+form[role="search"] p input:invalid,
 form[role="search"] p textarea:invalid {
   border: none;
 }

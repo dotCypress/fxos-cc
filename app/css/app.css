@@ -17,7 +17,7 @@ body {
 }
 
 form.editor {
- margin: 1rem 2rem;
+ margin: 1rem 0.5rem;
 }
 
 .view {
@@ -109,4 +109,47 @@ fieldset.error section input[type="text"]{
 .view fieldset section textarea{
   height: auto;
   font-family: "MozTT",sans-serif;
+}
+
+#startDate, #dueDate, #contextSelector, #projectSelector{
+  opacity: 0;
+  width: 0;
+  height: 0;
+  display: block;
+  border: none;
+}
+
+#dates input{
+  width: 80%;
+}
+
+#dates button{
+  opacity: 1;
+  pointer-events: all;
+}
+
+.task-editor fieldset section{
+  margin-left: 11rem;
+}
+
+.task-editor fieldset legend{
+  width: 11rem;
+}
+
+.parents button.virtual{
+  background: none repeat scroll 0 0 transparent;
+  border: medium none;
+  border-radius: 0 0 0 0;
+  height: 4rem;
+  box-shadow: none;
+  display: block;
+  text-align: left;
+  font-size: 1.8rem;
+  height: 4rem;
+  line-height: 4rem;
+  overflow: hidden;
+  padding: 0 1.2rem;
+  resize: none;
+  width: 100%;
+  margin: 0;
 }

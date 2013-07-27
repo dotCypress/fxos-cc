@@ -1,6 +1,26 @@
-define(['app'], function(app) {
+define(['app', 'lodash'], function(app, _) {
   app.controller('EditTaskCtrl', ['$scope', '$routeParams', '$navigate', 'database',
     function EditTaskCtrl($scope, $routeParams, $navigate, database) {
+
+      $scope.$watch('task.projectId', function() {
+        if(!$scope.task){
+          return;
+        }
+        var project = _.find($scope.projects, function(project) {
+          return project._id === $scope.task.projectId;
+        });
+        $scope.projectName = project.name;
+      }, true);
+
+      $scope.$watch('task.contextId', function() {
+         if(!$scope.task){
+          return;
+        }
+        var context = _.find($scope.contexts, function(context) {
+          return context._id === $scope.task.contextId;
+        }) || {name: '-- Without context --'};
+        $scope.contextName = context.name;
+      }, true);
 
       database.getTaskById($routeParams.id, function(err, task){
         $scope.task = task || {
