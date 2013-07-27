@@ -50,7 +50,7 @@ define(['app', 'lodash'], function(app, _) {
       this.getProjects = function(parentFolderId, cb) {
         projects.allDocs({include_docs: true}, function(err, doc) {
           var projects = _.sortBy(_.pluck(doc.rows, 'doc'), 'name');
-          projects.unshift({_id:1, name: 'Single tasks'});
+          projects.unshift({_id: '1', name: 'Single tasks'});
           return cb(null, projects);
         });
       };

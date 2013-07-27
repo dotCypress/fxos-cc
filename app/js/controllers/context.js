@@ -8,7 +8,8 @@ define(['app'], function(app) {
           $scope.$apply();
         });
       };
-
+      $scope.getTaskStatus = extensions.getTaskStatus;
+      $scope.getDueDate = extensions.getDueDate;
       $scope.sorting = extensions.sorting;
       $scope.sortKind = extensions.sorting[4];
       database.getContextById($routeParams.id, function(err, context){

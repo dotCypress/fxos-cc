@@ -63,6 +63,19 @@ define(['app', 'lodash'], function(app, _) {
         }
         return new Date(date.getFullYear(), date.getMonth(), date.getDate()).getTime();
        };
+
+       this.getDueDate = function(task){
+        if(!task.dueDate){
+          return '';
+        }
+        if(self.getStartTime(task.dueDate) < self.getStartTime()){
+          return 'overdued';
+        }
+        if(self.getStartTime(task.dueDate) == self.getStartTime()){
+          return 'due today';
+        }
+        return 'due ' + task.dueDate;
+       }
     };
     return new Extensions();
   });

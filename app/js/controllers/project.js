@@ -8,11 +8,12 @@ define(['app'], function(app) {
           $scope.$apply();
         });
       };
-
+      $scope.getTaskStatus = extensions.getTaskStatus;
+      $scope.getDueDate = extensions.getDueDate;
       $scope.sorting = extensions.sorting;
       $scope.sortKind = extensions.sorting[4];
-      if($routeParams.id == 1){
-        $scope.project = {_id: 1, name: 'Single tasks'};
+      if($routeParams.id == '1'){
+        $scope.project = {_id: '1', name: 'Single tasks'};
         loadData();
       }else{
         database.getProjectById($routeParams.id, function(err, project){
@@ -24,7 +25,7 @@ define(['app'], function(app) {
           }
           loadData();
         });
-      }    
+      }
 
       $scope.switchSorting = function(sort){
         $scope.sortKind = sort;

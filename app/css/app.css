@@ -26,6 +26,39 @@ form.editor {
   height: -moz-calc(100% - 5rem);
 }
 
+[data-type="list"].view {
+  padding-left: 0;
+}
+
+[data-type="list"].view li, [data-type="list"].view li:last-child  {
+  border-left: solid 6px white;
+  padding-left: 1rem;
+}
+
+[data-type="list"].view li.task-status-1{
+  border-left: solid 6px #e51400;
+}
+
+[data-type="list"].view li.task-status-2{
+  border-left: solid 6px #339933;
+}
+
+[data-type="list"].view li.task-status-3{
+  border-left: solid 6px #339933;
+}
+
+[data-type="list"].view li.task-status-4{
+  border-left: solid 6px #aaaaaa;
+}
+
+[data-type="list"].view li.task-status-5{
+  border-left: solid 6px #808080;
+}
+
+[data-type="list"].view li.task-status-6{
+  border-left: solid 6px #808080;
+}
+
 .view.with-toolbar ul {
   padding-bottom: 7rem;
 }

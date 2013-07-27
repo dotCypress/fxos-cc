@@ -2,6 +2,7 @@ define(['app'], function(app) {
   app.controller('DashboardCtrl', ['$scope', '$navigate', 'database', 'extensions',
     function DashboardCtrl($scope, $navigate, database, extensions) {
       $scope.getTaskStatus = extensions.getTaskStatus;
+      $scope.getDueDate = extensions.getDueDate;
       $scope.sorting = extensions.sorting;
       $scope.sortKind = extensions.sorting[4];
       $scope.tabs = [

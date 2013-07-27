@@ -11,7 +11,7 @@
 </section>
 <section data-type="list" class="view with-toolbar" data-ng-show="currentTab==0">
     <ul>
-      <li data-ng-repeat="item in due">
+      <li data-ng-repeat="item in due" data-ng-class="'task-status-' + getTaskStatus(item)">
         <aside>
           <label class="pack-checkbox">
             <input type="checkbox" data-ng-model="item.isCompleted" data-ng-change="taskChanged(item)">
@@ -23,7 +23,7 @@
             {{item.name}}
           </p>
           <p>
-            {{item.memo}}
+            {{getDueDate(item)}}
           </p>
         </a>
       </li>
@@ -48,14 +48,19 @@
           <aside>
             <span class="entity context"></span>
           </aside>
-          <p>{{item.name}}</p>
+          <p>
+            {{item.name}}
+          </p>
+          <p>
+            {{item.memo}}
+          </p>
         </a>
       </li>
     </ul>
 </section>
 <section data-type="list" class="view with-toolbar" data-ng-show="currentTab==3">
     <ul>
-      <li data-ng-repeat="item in chaosBox">
+      <li data-ng-repeat="item in chaosBox" data-ng-class="'task-status-' + getTaskStatus(item)">
         <aside>
         <label class="pack-checkbox">
           <input type="checkbox" data-ng-model="item.isCompleted" data-ng-change="taskChanged(item)">
@@ -67,7 +72,7 @@
             {{item.name}}
           </p>
           <p>
-            {{getTaskStatus(item)}}
+            {{getDueDate(item)}}
           </p>
         </a>
       </li>
