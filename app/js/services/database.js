@@ -1,34 +1,77 @@
-define(['app', 'lodash'], function(app, _) {
+define(['app', 'lodash', 'async'], function(app, _, async) {
   app.factory('database', ['extensions', function(extensions) {
 
     var DB = function() {
       var self = this;
-      var tasks = new PouchDB('tasksv');
-      var projects = new PouchDB('projects');
-      var contexts = new PouchDB('contexts');
-      var meta = new PouchDB('meta');
+      var prefix = 'cc.1.0.';
+      var tasks = new PouchDB(prefix + 'tasks');
+      var projects = new PouchDB(prefix + 'projects');
+      var contexts = new PouchDB(prefix + 'contexts');
+      var meta = new PouchDB(prefix + 'meta');
+      this.cache = {};
 
-      this.buildPredefined = function(){
-        meta.get(0, function (err, doc) {
-          if(!(err && err.status == 404)){
-            return;
+      this.updateCache = function(cb){
+        tasks.allDocs({include_docs: true}, function(err, doc) {
+          var all =  _.pluck(doc.rows, 'doc');
+          var notCompleted = _.filter(all, function(task){
+            var status = extensions.getTaskStatus(task);
+            return status !== extensions.completed;
+          });
+          self.cache = {};
+          _.forEach(notCompleted, function (task) {
+            var projectKey = 'p' + task.projectId;
+            var status = extensions.getTaskStatus(task);
+            if(!self.cache[projectKey]){
+              self.cache[projectKey] = {total: 0, overdue: 0};
+            }
+            self.cache[projectKey].total++;
+            if(status === extensions.overdue){
+              self.cache[projectKey].overdue++;
+            }
+            var contextKey = 'c' + task.contextId;
+            if(!self.cache[contextKey]){
+              self.cache[contextKey] = {total: 0, overdue: 0};
+            }
+             if(status === extensions.overdue){
+              self.cache[contextKey].overdue++;
+            }
+            self.cache[contextKey].total++;
+          });
+          cb();
+        });
+      };
+
+      this.getProjectInfo = function(project){
+        var holder = self.cache['p' + project._id] || {total: 0, overdue: 0};
+        return extensions.getTasksAmountString(holder.total, holder.overdue);
+      }
+
+      this.getContextInfo = function(context){
+        var holder = self.cache['c' + context._id] || {total: 0, overdue: 0};
+        return extensions.getTasksAmountString(holder.total, holder.overdue);
+      }
+
+      this.buildPredefined = function(callback){
+        meta.get('1', function (err, doc) {
+          if(doc){
+            return self.updateCache(callback);
           }
-          meta.put({_id: 0});
-          //TODO: use async
-          self.saveProject({_id: '200', name: 'Bussines', memo: 'Business Projects'});
-          self.saveProject({_id: '201', name: 'Personal', memo: 'Family related, self improvement and all other personal projects'});
-
-          self.saveContext({_id: '300', name: '@home'});
-          self.saveContext({_id: '301', name: '@office'});
-          self.saveContext({_id: '302', name: 'In the morning'});
-          self.saveContext({_id: '303', name: '@garage'});
-          self.saveContext({_id: '304', name: 'If got some free time'});
-          self.saveContext({_id: '305', name: 'Online'});
-
-          self.saveTask({_id: '400', name: 'Follow Tarasov Mobile on twitter: @TarasovMobile', startDate: null, dueDate: new Date(), contextId: '305', projectId: '201'});
-          self.saveTask({_id: '401', name: 'Check out the Chaos Control web-page: www.chaos-control.mobi', startDate: null, dueDate: new Date(), contextId: '305', projectId: '201'});
-          self.saveTask({_id: '402', name: 'Join us at Facebook: http://facebook.com/TarasovMobile', startDate: null, dueDate: new Date(), contextId: '305', projectId: '201'});
-          self.saveTask({_id: '403', name: 'Order "Getting Things Done" book by David Allen', startDate: null, dueDate: null, contextId: '304', projectId: '200'});
+          meta.put({_id: '1', name: 'stub'}, function (err) {
+            async.series([
+              function(cb){self.saveProject({_id: '200', name: 'Bussines', memo: 'Business Projects'}, cb);},
+              function(cb){self.saveProject({_id: '201', name: 'Personal', memo: 'Family related, self improvement and all other personal projects'}, cb);},
+              function(cb){self.saveContext({_id: '300', name: '@home'}, cb);},
+              function(cb){self.saveContext({_id: '301', name: '@office'}, cb);},
+              function(cb){self.saveContext({_id: '302', name: 'In the morning'}, cb);},
+              function(cb){self.saveContext({_id: '303', name: '@garage'}, cb);},
+              function(cb){self.saveContext({_id: '304', name: 'If got some free time'}, cb);},
+              function(cb){self.saveContext({_id: '305', name: 'Online'}, cb);},
+              function(cb){self.saveTask({_id: '400', name: 'Follow Tarasov Mobile on twitter: @TarasovMobile', startDate: null, dueDate: new Date(), contextId: '305', projectId: '201'}, cb);},
+              function(cb){self.saveTask({_id: '401', name: 'Check out the Chaos Control web-page: www.chaos-control.mobi', startDate: null, dueDate: new Date(), contextId: '305', projectId: '201'}, cb);},
+              function(cb){self.saveTask({_id: '402', name: 'Join us at Facebook: http://facebook.com/TarasovMobile', startDate: null, dueDate: new Date(), contextId: '305', projectId: '201'}, cb);},
+              function(cb){self.saveTask({_id: '403', name: 'Order "Getting Things Done" book by David Allen', startDate: null, dueDate: null, contextId: '304', projectId: '200'}, cb);}
+            ], callback);
+          });
         });
       };
 
@@ -66,11 +109,15 @@ define(['app', 'lodash'], function(app, _) {
       };
 
       this.saveTask = function(task, cb) {
-        tasks.put(task, cb);
+        tasks.put(task, function () {
+          self.updateCache(cb);
+        });
       };
 
       this.deleteTask = function(task, cb) {
-        tasks.remove(task, cb);
+        tasks.remove(task, function () {
+          self.updateCache(cb);
+        });
       };
 
       this.getTaskById = function(id, cb) {
@@ -90,16 +137,23 @@ define(['app', 'lodash'], function(app, _) {
       };
 
       this.saveProject = function(project, cb) {
-        projects.put(project, cb);
+        projects.put(project, function () {
+          self.updateCache(cb);
+        });
       };
 
       this.deleteProject = function(project, cb) {
         self.getProjectTasks(project._id, function(err, child){
-          _.forEach(child, function (task) {
-            //TODO: use async
-            tasks.remove(task);
+          var steps = _.map(child, function (task) {
+            return function(cb){
+              tasks.remove(task, cb);
+            };
           });
-         projects.remove(project, cb);
+          async.series(steps, function () {
+            projects.remove(project, function () {
+              self.updateCache(cb);
+            });
+          });
         });
       };
 
@@ -118,17 +172,24 @@ define(['app', 'lodash'], function(app, _) {
       };
 
       this.saveContext = function(context, cb) {
-        contexts.put(context, cb);
+        contexts.put(context, function () {
+          self.updateCache(cb);
+        });
       };
 
       this.deleteContext = function(context, cb) {
         self.getContextTasks(context._id, function(err, child){
-          _.forEach(child, function (task) {
-            task.contextId = null;
-            //TODO: use async
-            tasks.put(task);
+          var steps = _.map(child, function (task) {
+            return function(cb){
+              task.contextId = null;
+              tasks.put(task, cb);
+            };
           });
-          contexts.remove(context, cb);
+          async.series(steps, function () {
+            contexts.remove(context, function () {
+              self.updateCache(cb);
+            });
+          });
         });
       };
 

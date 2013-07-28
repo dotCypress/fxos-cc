@@ -80,6 +80,16 @@ define(['app', 'lodash'], function(app, _) {
         }
         return 'due ' + task.dueDate;
        }
+
+      this.getTasksAmountString = function(amount, overdueAmount) {
+        if (amount === 0) {
+          return 'no tasks';
+        }
+        var word = amount % 10 == 1 && amount % 100 != 11 ? 'task' : 'tasks';
+        var overdueWord = 'overdue';
+        return overdueAmount == 0 ? amount + " " + word : amount + " " + word + ", " + overdueAmount + " " + overdueWord;
+      };
+
     };
     return new Extensions();
   });

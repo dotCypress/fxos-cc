@@ -49,8 +49,7 @@ define(['angular'], function() {
         });
     }]);
 
-  app.controller('MainCtrl', ['$scope', '$navigate', '$location', 'database', function($scope, $navigate, $location, database) {
-    database.buildPredefined();
+  app.controller('MainCtrl', ['$scope', '$navigate', '$location', function($scope, $navigate, $location) {
     var search = $location.search();
     $navigate.go($location.path(), 'none').search(search);
   }]);

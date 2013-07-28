@@ -2,6 +2,8 @@ define(['app'], function(app) {
   app.controller('DashboardCtrl', ['$scope', '$navigate', 'database', 'extensions',
     function DashboardCtrl($scope, $navigate, database, extensions) {
       $scope.getTaskStatus = extensions.getTaskStatus;
+      $scope.getProjectInfo = database.getProjectInfo;
+      $scope.getContextInfo = database.getContextInfo;
       $scope.getDueDate = extensions.getDueDate;
       $scope.sorting = extensions.sorting;
       $scope.sortKind = extensions.sorting[4];
@@ -66,6 +68,10 @@ define(['app'], function(app) {
       $scope.currentTabTitle = function(){
         return $scope.tabs[$scope.currentTab].name;
       };
+
+      database.buildPredefined(function () {
+         loadData();
+      });
 
       $scope.switchTab(app.state.tab || 0);
 

@@ -8,34 +8,36 @@
     <h1>Project</h1>
   </header>
 </section>
-<form class="editor">
-  <h2>Project details</h2>
-  <fieldset data-ng-class="{'error': error}">
-    <legend>Name</legend>
+<section role="region" class="view">
+  <form class="editor">
+    <h2>Project details</h2>
+    <fieldset data-ng-class="{'error': error}">
+      <legend>Name</legend>
+      <section>
+        <p>
+          <textarea data-ng-model="project.name" rows="3" placeholder="Name"></textarea>
+          <button type="reset">Clear</button>
+        </p>
+      </section>
+    </fieldset>
+    <fieldset>
+      <legend>Memo</legend>
+      <section>
+        <p>
+          <textarea data-ng-model="project.memo" rows="3" placeholder="Memo"></textarea>
+          <button type="reset">Clear</button>
+        </p>
+      </section>
+    </fieldset>
+  </form>
+  <form role="dialog" data-type="confirm" data-ng-show="showConfirmation">
     <section>
-      <p>
-        <input data-ng-model="project.name" type="text" placeholder="Name">
-        <button type="reset">Clear</button>
-      </p>
+      <h1>Confirmation</h1>
+      <p>Are you sure you want to delete this project with all tasks?</p>
     </section>
-  </fieldset>
-  <fieldset>
-    <legend>Memo</legend>
-    <section>
-      <p>
-        <input data-ng-model="project.memo" type="text" placeholder="Memo">
-        <button type="reset">Clear</button>
-      </p>
-    </section>
-  </fieldset>
-</form>
-<form role="dialog" data-type="confirm" data-ng-show="showConfirmation">
-  <section>
-    <h1>Confirmation</h1>
-    <p>Are you sure you want to delete this project with all tasks?</p>
-  </section>
-  <menu>
-    <button data-ng-click="showConfirmation=false">Cancel</button>
-    <button class="danger" data-ng-click="delete()">Delete</button>
-  </menu>
-</form>
+    <menu>
+      <button data-ng-click="showConfirmation=false">Cancel</button>
+      <button class="danger" data-ng-click="delete()">Delete</button>
+    </menu>
+  </form>
+</section>

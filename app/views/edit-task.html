@@ -8,14 +8,14 @@
     <h1>Task</h1>
   </header>
 </section>
-<section role="region" class="view with-toolbar task-editor">
+<section role="region" class="view task-editor">
   <form class="editor">
     <h2>Task details</h2>
     <fieldset data-ng-class="{'error': error}">
       <legend>Name</legend>
       <section>
         <p>
-          <textarea data-ng-model="task.name" type="text" placeholder="Name" rows="4"></textarea>
+          <textarea data-ng-model="task.name" placeholder="Name" rows="4"></textarea>
           <button type="reset">Clear</button>
         </p>
       </section>
@@ -24,7 +24,7 @@
       <legend>Memo</legend>
       <section>
         <p>
-          <input data-ng-model="task.memo" type="text" placeholder="Memo">
+          <textarea data-ng-model="task.memo" type="text" placeholder="Memo" rows="3"></textarea>
           <button type="reset">Clear</button>
         </p>
       </section>
