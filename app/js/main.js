@@ -7,7 +7,8 @@ require.config({
   paths: {
     app: 'js/app',
     angular: 'js/vendor/angular.min',
-    lodash: 'js/vendor/lodash'
+    lodash: 'js/vendor/lodash',
+    async: 'js/vendor/async'
   },
   baseUrl: '/'
 });
@@ -17,6 +18,7 @@ require.config({
     'app',
     'js/vendor/mobile-nav.js',
     'js/vendor/pouchdb.js',
+    'async',
     'angular',
 
     // services

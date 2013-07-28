@@ -172,6 +172,10 @@ fieldset.error section textarea{
   opacity: 1;
   pointer-events: all;
 }
+.about{
+  margin: 1rem;
+  font-size: 1.4rem;
+}
 
 .task-editor fieldset section{
   margin-left: 11rem;
@@ -197,4 +201,17 @@ fieldset.error section textarea{
   resize: none;
   width: 100%;
   margin: 0;
+}
+
+.reset-date{
+  background: url("../gaia/input_areas/images/icons/clear.png") no-repeat scroll 50% 50% / 1.7rem auto transparent;
+  border: medium none;
+  font-size: 0;
+  height: 4rem;
+  padding: 0;
+  position: absolute;
+  right: 0;
+  margin: 0;
+  top: 0;
+  width: 3rem;
 }

@@ -59,12 +59,12 @@
         <p>
           <input type="text" placeholder="Start date" onclick="document.getElementById('startDate').focus()" readonly="readonly" data-ng-model="task.startDate" >
           <input id="startDate" data-ng-model="task.startDate" type="date" dateFix>
-          <button type="reset" data-ng-click="task.startDate=null">Clear</button>
+          <button type="button" class="reset-date" data-ng-click="task.startDate=null">Clear</button>
         </p>
         <p>
           <input type="text" placeholder="Due date" onclick="document.getElementById('dueDate').focus()" readonly="readonly" data-ng-model="task.dueDate" >
           <input id="dueDate" data-ng-model="task.dueDate" type="date" dateFix>
-          <button type="reset">Clear</button>
+          <button type="button" class="reset-date" data-ng-click="task.dueDate=null">Clear</button>
         </p>
       </section>
     </fieldset>

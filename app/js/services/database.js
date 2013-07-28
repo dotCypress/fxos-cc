@@ -6,6 +6,31 @@ define(['app', 'lodash'], function(app, _) {
       var tasks = new PouchDB('tasksv');
       var projects = new PouchDB('projects');
       var contexts = new PouchDB('contexts');
+      var meta = new PouchDB('meta');
+
+      this.buildPredefined = function(){
+        meta.get(0, function (err, doc) {
+          if(!(err && err.status == 404)){
+            return;
+          }
+          meta.put({_id: 0});
+          //TODO: use async
+          self.saveProject({_id: '200', name: 'Bussines', memo: 'Business Projects'});
+          self.saveProject({_id: '201', name: 'Personal', memo: 'Family related, self improvement and all other personal projects'});
+
+          self.saveContext({_id: '300', name: '@home'});
+          self.saveContext({_id: '301', name: '@office'});
+          self.saveContext({_id: '302', name: 'In the morning'});
+          self.saveContext({_id: '303', name: '@garage'});
+          self.saveContext({_id: '304', name: 'If got some free time'});
+          self.saveContext({_id: '305', name: 'Online'});
+
+          self.saveTask({_id: '400', name: 'Follow Tarasov Mobile on twitter: @TarasovMobile', startDate: null, dueDate: new Date(), contextId: '305', projectId: '201'});
+          self.saveTask({_id: '401', name: 'Check out the Chaos Control web-page: www.chaos-control.mobi', startDate: null, dueDate: new Date(), contextId: '305', projectId: '201'});
+          self.saveTask({_id: '402', name: 'Join us at Facebook: http://facebook.com/TarasovMobile', startDate: null, dueDate: new Date(), contextId: '305', projectId: '201'});
+          self.saveTask({_id: '403', name: 'Order "Getting Things Done" book by David Allen', startDate: null, dueDate: null, contextId: '304', projectId: '200'});
+        });
+      };
 
       this.getDueTasks = function(cb) {
         tasks.allDocs({include_docs: true}, function(err, doc) {
@@ -71,6 +96,7 @@ define(['app', 'lodash'], function(app, _) {
       this.deleteProject = function(project, cb) {
         self.getProjectTasks(project._id, function(err, child){
           _.forEach(child, function (task) {
+            //TODO: use async
             tasks.remove(task);
           });
          projects.remove(project, cb);
@@ -99,6 +125,7 @@ define(['app', 'lodash'], function(app, _) {
         self.getContextTasks(context._id, function(err, child){
           _.forEach(child, function (task) {
             task.contextId = null;
+            //TODO: use async
             tasks.put(task);
           });
           contexts.remove(context, cb);
