@@ -31,7 +31,7 @@ define(['app', 'lodash'], function(app, _) {
           projectId: $routeParams.pid,
           isCompleted: false,
           startDate: null,
-          dueDate:null
+          dueDate: $routeParams.today ? new Date() : null
         };
         $scope.isExisting = task != null;
 

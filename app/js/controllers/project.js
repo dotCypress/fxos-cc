@@ -38,7 +38,7 @@ define(['app'], function(app) {
       };
 
       $scope.editTask = function(id){
-        $navigate.go('/edit-task/' + id + '//', 'modal');
+        $navigate.go('/edit-task/' + id + '///', 'modal');
       }
 
       $scope.edit = function(){
@@ -46,7 +46,7 @@ define(['app'], function(app) {
       }
 
       $scope.add = function(){
-        $navigate.go('/edit-task//' + $scope.project._id + '/', 'modal');
+        $navigate.go('/edit-task//' + $scope.project._id + '//', 'modal');
       }
 
       $scope.taskChanged = function(task){

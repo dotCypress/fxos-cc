@@ -24,7 +24,7 @@ define(['angular'], function() {
           templateUrl: 'views/about.html',
           controller: 'AboutCtrl'
         })
-        .when('/edit-task/:id/:pid/:cid', {
+        .when('/edit-task/:id/:pid/:cid/:today', {
           templateUrl: 'views/edit-task.html',
           controller: 'EditTaskCtrl'
         })
