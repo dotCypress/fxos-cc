@@ -20,6 +20,10 @@ define(['angular'], function() {
           templateUrl: 'views/dashboard.html',
           controller: 'DashboardCtrl'
         })
+        .when('/about', {
+          templateUrl: 'views/about.html',
+          controller: 'AboutCtrl'
+        })
         .when('/edit-task/:id/:pid/:cid', {
           templateUrl: 'views/edit-task.html',
           controller: 'EditTaskCtrl'

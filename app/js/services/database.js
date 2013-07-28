@@ -2,6 +2,7 @@ define(['app', 'lodash'], function(app, _) {
   app.factory('database', ['extensions', function(extensions) {
 
     var DB = function() {
+      var self = this;
       var tasks = new PouchDB('tasksv');
       var projects = new PouchDB('projects');
       var contexts = new PouchDB('contexts');
@@ -56,7 +57,7 @@ define(['app', 'lodash'], function(app, _) {
       this.getProjects = function(parentFolderId, cb) {
         projects.allDocs({include_docs: true}, function(err, doc) {
           var projects = _.pluck(doc.rows, 'doc');
-          projects.unshift({_id: 1, name: 'Single tasks'});
+          projects.unshift({_id: '1', name: 'Single tasks'});
           return cb(null, _.sortBy(projects, function (project) {
             return project.name.toLowerCase();
           }));
@@ -68,7 +69,12 @@ define(['app', 'lodash'], function(app, _) {
       };
 
       this.deleteProject = function(project, cb) {
-        projects.remove(project, cb);
+        self.getProjectTasks(project._id, function(err, child){
+          _.forEach(child, function (task) {
+            tasks.remove(task);
+          });
+         projects.remove(project, cb);
+        });
       };
 
       this.getProjectById = function(id, cb) {
@@ -90,7 +96,13 @@ define(['app', 'lodash'], function(app, _) {
       };
 
       this.deleteContext = function(context, cb) {
-        contexts.remove(context, cb);
+        self.getContextTasks(context._id, function(err, child){
+          _.forEach(child, function (task) {
+            task.contextId = null;
+            tasks.put(task);
+          });
+          contexts.remove(context, cb);
+        });
       };
 
       this.getContextById = function(id, cb) {

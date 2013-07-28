@@ -45,6 +45,10 @@ define(['app'], function(app) {
         $navigate.go('/context/' + id, 'slide');
       }
 
+      $scope.about = function(){
+        $navigate.go('/about', 'slide');
+      }
+
       $scope.navigateToProject = function(id){
         $navigate.go('/project/' + id, 'slide');
       }
@@ -86,7 +90,7 @@ define(['app'], function(app) {
             });
           break;
           case 3:
-            database.getProjectTasks(0, function(err, tasks){
+            database.getProjectTasks('0', function(err, tasks){
               $scope.chaosBox = extensions.filter(tasks, $scope.sortKind);
               $scope.$apply();
             });

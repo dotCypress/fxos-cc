@@ -1,6 +1,6 @@
 <section role="region">
   <header>
-  <button data-ng-click="close()"><span class="icon icon-back">back</span></button>
+    <button data-ng-click="close()"><span class="icon icon-back">back</span></button>
     <menu type="toolbar">
       <button data-ng-click="edit()" data-ng-show="isEditable"><span class="icon icon-edit">edit</span></button>
       <button data-ng-click="add()"><span class="icon icon-add">add</span></button>
@@ -8,7 +8,7 @@
     <h1>{{project.name}}</h1>
   </header>
   <header>
-    <a data-ng-click="showSortingChooser=true"><h2 class="button">{{sortKind.name}}</h2></a>
+    <a data-ng-click="showSortingChooser=true"><h2 class="button sorter">{{sortKind.name}} <i></i></h2></a>
   </header>
 </section>
 <section data-type="list" class="view with-toolbar">

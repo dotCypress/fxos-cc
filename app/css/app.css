@@ -32,31 +32,43 @@ form.editor {
 
 [data-type="list"].view li, [data-type="list"].view li:last-child  {
   border-left: solid 6px white;
-  padding-left: 1rem;
 }
 
 [data-type="list"].view li.task-status-1{
   border-left: solid 6px #e51400;
+  padding-left: 1rem;
 }
 
-[data-type="list"].view li.task-status-2{
+[data-type="list"].view li.task-status-2, [data-type="list"].view li.task-status-3{
   border-left: solid 6px #339933;
-}
-
-[data-type="list"].view li.task-status-3{
-  border-left: solid 6px #339933;
+  padding-left: 1rem;
 }
 
 [data-type="list"].view li.task-status-4{
   border-left: solid 6px #aaaaaa;
+  padding-left: 1rem;
 }
 
-[data-type="list"].view li.task-status-5{
+[data-type="list"].view li.task-status-5, [data-type="list"].view li.task-status-6{
   border-left: solid 6px #808080;
+  padding-left: 1rem;
 }
 
-[data-type="list"].view li.task-status-6{
-  border-left: solid 6px #808080;
+header .button.sorter{
+  color: #008AAA;
+  font-weight: bold;
+}
+
+section[role="region"] > header:first-child .icon.icon-about {
+    background-image: url("img/about.png");
+}
+
+header .button.sorter i{
+  height: 18px;
+  margin-left: 0.7rem;
+  position: absolute;
+  width: 18px;
+  background: url("/img/icon_filters.png") no-repeat scroll 0 0 transparent;
 }
 
 .view.with-toolbar ul {
@@ -135,7 +147,7 @@ aside>label.pack-checkbox {
   width: 2rem;
 }
 
-fieldset.error section input[type="text"]{
+fieldset.error section textarea{
   background-color: #f7a6a6;
 }
 
