@@ -55,6 +55,10 @@ define(['app', 'lodash'], function(app, _) {
         return dueDate === startOfToday ? self.due_today : self.active;
       };
 
+      this.getTaskWeight = function(task){
+        return this.getTaskStatus(task) +(task.dueDate || '2000-01-01') + task.name;
+      }
+
       this.getStartTime = function(date) {
         if(!date){
           date = new Date();

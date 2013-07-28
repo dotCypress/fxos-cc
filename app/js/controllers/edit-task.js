@@ -7,8 +7,8 @@ define(['app', 'lodash'], function(app, _) {
           return;
         }
         var project = _.find($scope.projects, function(project) {
-          return project._id === $scope.task.projectId;
-        });
+          return project._id == $scope.task.projectId;
+        }) || {name: ''};
         $scope.projectName = project.name;
       }, true);
 
@@ -21,14 +21,15 @@ define(['app', 'lodash'], function(app, _) {
         }) || {name: '-- Without context --'};
         $scope.contextName = context.name;
       }, true);
-
+console.log('cid ' + $routeParams.cid);
+console.log('pid ' + $routeParams.pid);
       database.getTaskById($routeParams.id, function(err, task){
         $scope.task = task || {
           _id: new Date().getTime() +'',
           name: '',
           memo: '',
-          contextId: null,
-          projectId: 0,
+          contextId: $routeParams.cid,
+          projectId: parseInt($routeParams.pid),
           isCompleted: false,
           startDate: null,
           dueDate:null
@@ -36,7 +37,7 @@ define(['app', 'lodash'], function(app, _) {
         $scope.isExisting = task != null;
 
         database.getProjects(null, function(err, projects){
-          projects.unshift({_id:0, name: 'Chaos Box'});
+          projects.unshift({_id: 0, name: 'Chaos Box'});
           $scope.projects = projects;
 
           database.getContexts(null, function(err, contexts){
@@ -68,7 +69,6 @@ define(['app', 'lodash'], function(app, _) {
           $scope.$apply();
         });
       };
-
     }
   ]);
 });

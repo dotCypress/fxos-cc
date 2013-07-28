@@ -13,7 +13,9 @@ define(['app', 'lodash'], function(app, _) {
             var status = extensions.getTaskStatus(task);
             return status === extensions.due_today || status === extensions.overdue;
           });
-          return cb(null, due);
+          return cb(null, _.sortBy(due, function (task) {
+            return extensions.getTaskWeight(task);
+          }));
         });
       };
 
@@ -21,7 +23,9 @@ define(['app', 'lodash'], function(app, _) {
         tasks.allDocs({include_docs: true}, function(err, doc) {
           var all = _.pluck(doc.rows, 'doc');
           var filtered = _.where(all , {'projectId' : projectId});
-          return cb(null, filtered);
+          return cb(null, _.sortBy(filtered, function (task) {
+            return extensions.getTaskWeight(task);
+          }));
         });
       };
 
@@ -29,7 +33,9 @@ define(['app', 'lodash'], function(app, _) {
         tasks.allDocs({include_docs: true}, function(err, doc) {
           var all = _.pluck(doc.rows, 'doc');
           var filtered = _.where(all , {'contextId' : contextId});
-          return cb(null, filtered);
+          return cb(null, _.sortBy(filtered, function (task) {
+            return extensions.getTaskWeight(task);
+          }));
         });
       };
 
@@ -49,9 +55,11 @@ define(['app', 'lodash'], function(app, _) {
 
       this.getProjects = function(parentFolderId, cb) {
         projects.allDocs({include_docs: true}, function(err, doc) {
-          var projects = _.sortBy(_.pluck(doc.rows, 'doc'), 'name');
-          projects.unshift({_id: '1', name: 'Single tasks'});
-          return cb(null, projects);
+          var projects = _.pluck(doc.rows, 'doc');
+          projects.unshift({_id: 1, name: 'Single tasks'});
+          return cb(null, _.sortBy(projects, function (project) {
+            return project.name.toLowerCase();
+          }));
         });
       };
 
@@ -71,7 +79,9 @@ define(['app', 'lodash'], function(app, _) {
 
       this.getContexts = function(parentContextId, cb) {
         contexts.allDocs({include_docs: true}, function(err, doc) {
-           return cb(null, _.sortBy(_.pluck(doc.rows, 'doc'), 'name'));
+           return cb(null, _.sortBy(_.pluck(doc.rows, 'doc'), function (project) {
+            return project.name.toLowerCase();
+          }));
         });
       };
 

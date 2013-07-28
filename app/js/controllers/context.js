@@ -32,7 +32,7 @@ define(['app'], function(app) {
       };
 
       $scope.editTask = function(id){
-        $navigate.go('/edit-task/' + id + '//', 'modal');
+        $navigate.go('/edit-task/' + id + '/0/', 'modal');
       }
 
       $scope.edit = function(){

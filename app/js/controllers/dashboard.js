@@ -15,7 +15,7 @@ define(['app'], function(app) {
       $scope.add = function(){
         switch($scope.currentTab){
           case 0:
-            $navigate.go('/edit-task///', 'modal');
+            $navigate.go('/edit-task//1/', 'modal');
           break;
           case 1:
             $navigate.go('/edit-project/', 'modal');
@@ -24,7 +24,7 @@ define(['app'], function(app) {
             $navigate.go('/edit-context/', 'modal');
           break;
           case 3:
-            $navigate.go('/edit-task/0//', 'modal');
+            $navigate.go('/edit-task//0/', 'modal');
           break;
         }
       };
