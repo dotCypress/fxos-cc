@@ -4,7 +4,8 @@
   "description": "A handy list of tasks and projects",
   "launch_path": "/index.html",
   "icons": {
-    "60": "/img/icons/icon.png"
+    "60": "/img/icons/icon-60.png",
+    "128": "/img/icons/icon-128.png"
   },
   "developer": {
     "name": "Vitaly Domnikov",
