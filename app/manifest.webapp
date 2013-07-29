@@ -1,7 +1,7 @@
 {
-  "version": "0.1",
+  "version": "1.0",
   "name": "Chaos Control",
-  "description": "A handy list of tasks and projects",
+  "description": "Chaos Control will help you organize your business and personal activities, boost your productivity, focus on things that actually matter and prevent burning out due to stress and information overload. With this simple, yet powerful app you will be able to focus on outcomes and define what actions to take to make them happen. The service will help you to control the incoming flow of tasks and process the important information.",
   "launch_path": "/index.html",
   "icons": {
     "60": "/img/icons/icon-60.png",
