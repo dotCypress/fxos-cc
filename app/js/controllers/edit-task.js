@@ -67,6 +67,14 @@ define(['app', 'lodash'], function(app, _) {
           $scope.$apply();
         });
       };
+
+      $scope.editStartDate = function(){
+        document.getElementById('startDate').focus();
+      };
+
+      $scope.editDueDate = function(){
+        document.getElementById('dueDate').focus();
+      };
     }
   ]);
 });
